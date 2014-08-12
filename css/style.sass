@@ -1,0 +1,355 @@
+.block_centered
+	position: absolute
+	left: 50%
+	top: 50%
+
+body , html
+	width: 100%
+	height: 100%
+	position: relative
+	float: left
+	overflow: hidden
+
+#full_container
+	width: 100%
+	height: 100%
+	display: block
+	position: relative
+	float: left
+	#loading
+		width: 100%
+		height: 100%
+		position: absolute
+		left: 0
+		top: 0
+		float: left
+		display: block
+		z-index: 40
+		background-color: lightgray
+		#loading_container
+			width: 250px
+			height: 50px
+			@extend .block_centered
+			margin-left: -15px
+			margin-top: -25px
+			color: black
+			text-align: center
+
+
+
+	#stage
+		width: 100%
+		height: 500%
+		display: block
+		position: absolute
+		float: left
+		top: 0px
+		
+		#header
+			width: 100%
+			height: 100px
+			position: fixed
+			left: 0
+			top: 0
+			z-index: 30
+			background-color: lightblue	
+				
+			#logo
+				width: 50px
+				height: 50px
+				background-color: darkblue
+				position: relative
+				float: left
+				margin-left: 25px
+				margin-top: 25px
+
+			#list
+				width: 100px
+				height: 50px
+				position: relative
+				float: right
+				margin-right: 25px
+				margin-top: 25px
+				a
+					width: 100px
+					height: 15px
+					display: block				
+				
+
+		#menu_container
+			width: 400px
+			height: 20%
+			position: fixed
+			right: -300px
+			top: 0
+			z-index: 4
+			#menu		
+				width: 100px
+				height: 700px
+				position: absolute
+				left: 0
+				top: 150px				
+				a
+					width: 25px
+					height: 25px
+					position: absolute
+					display: block
+					background-color: lightgreen
+				a.selected
+					width: 50px
+					height: 50px
+				@for $i from 1 through 7
+					#menu_item#{$i}					
+						top: (($i * 50px) - 50px)
+
+				
+
+
+		#home
+			width: 100%
+			height: 20%
+			display: block
+			position: relative			
+			float: left
+			background-color: tomato
+			z-index: 3
+			#home_container
+				width: 500px
+				height: 250px
+				@extend .block_centered
+				margin-left: -250px
+				margin-top: -125px	
+				color: white
+
+
+		// 8 8888           b.             8 8888888 8888888888 8 888888888o.      ,o888888o.
+		// 8 8888           888o.          8       8 8888       8 8888    `88.  . 8888     `88.
+		// 8 8888           Y88888o.       8       8 8888       8 8888     `88 ,8 8888       `8b
+		// 8 8888           .`Y888888o.    8       8 8888       8 8888     ,88 88 8888        `8b
+		// 8 8888           8o. `Y888888o. 8       8 8888       8 8888.   ,88' 88 8888         88
+		// 8 8888           8`Y8o. `Y88888o8       8 8888       8 888888888P'  88 8888         88
+		// 8 8888           8   `Y8o. `Y8888       8 8888       8 8888`8b      88 8888        ,8P
+		// 8 8888           8      `Y8o. `Y8       8 8888       8 8888 `8b.    `8 8888       ,8P
+		// 8 8888           8         `Y8o.`       8 8888       8 8888   `8b.   ` 8888     ,88'
+		// 8 8888           8            `Yo       8 8888       8 8888     `88.    `8888888P'
+		#bg_image
+			width: 100%
+			height: 100%
+			position: fixed
+			z-index: 2
+			top: 0%
+			.intro_img
+				width: 100%
+				height: 100%
+				position: absolute
+				left: 0
+				top: 0
+				background-position: center
+				// background-size: 100% auto
+				background-size: cover
+				background-repeat: no-repeat
+				z-index: 1
+			
+			@for $i from 1 through 30
+				#intro_img1.frame_#{$i}							
+					background-image: url("../img/secuencia/secuencia_#{$i}.png")
+			
+
+		// #intro_section1
+		// 	$contador : 0
+		// 	@for $i from 25 through 60
+		// 		@$contador : $contador + 1
+		// 		#intro_img1.frame_#{$i - 24}												
+		// 			background-image: url("../secuencia_short/Prueba02_big00#{$i}.png")
+		#intro
+			width: 100%
+			height: 60%
+			position: relative
+			float: left
+			z-index: 3
+
+			.intro_section			
+				width: 100%
+				height: 33.3%
+				display: block
+				position: relative
+				float: left								
+
+				.intro_img
+					width: 100%
+					height: 100%
+					position: absolute
+					left: 0
+					top: 0
+					background-position: center
+					background-size: auto 100%
+					background-repeat: no-repeat
+					z-index: 1
+
+				.highlight_container
+					width: 500px
+					height: 300px
+					position: absolute
+					z-index: 2
+					@extend .block_centered
+					margin-left: -250px
+					margin-top: -150px
+
+
+
+
+			.highlight
+				width: 100%
+				height: 400px
+				position: absolute
+				left: 0
+				top: 0
+			
+			
+
+			// @for $i from 2 through 5
+			// 	#intro_section#{$i}
+			// 		@for $j from 1 through 9
+			// 			#intro_img#{$i}.frame_#{$j}							
+			// 				background-image: url("../secuencia/Llanta00#{( ($i - 1) * 10) + $j}.jpg")	
+	
+
+						
+		
+		//     ,o888888o.          .8.          8 8888         8 8888         8 8888888888   8 888888888o. `8.`8888.      ,8'
+		//    8888     `88.       .888.         8 8888         8 8888         8 8888         8 8888    `88. `8.`8888.    ,8'
+		// ,8 8888       `8.     :88888.        8 8888         8 8888         8 8888         8 8888     `88  `8.`8888.  ,8'
+		// 88 8888              . `88888.       8 8888         8 8888         8 8888         8 8888     ,88   `8.`8888.,8'
+		// 88 8888             .8. `88888.      8 8888         8 8888         8 888888888888 8 8888.   ,88'    `8.`88888'
+		// 88 8888            .8`8. `88888.     8 8888         8 8888         8 8888         8 888888888P'      `8. 8888
+		// 88 8888   8888888 .8' `8. `88888.    8 8888         8 8888         8 8888         8 8888`8b           `8 8888
+		// `8 8888       .8'.8'   `8. `88888.   8 8888         8 8888         8 8888         8 8888 `8b.          8 8888
+		//    8888     ,88'.888888888. `88888.  8 8888         8 8888         8 8888         8 8888   `8b.        8 8888
+		//     `8888888P' .8'       `8. `88888. 8 888888888888 8 888888888888 8 888888888888 8 8888     `88.      8 8888
+		#gallery
+			width: 100%
+			height: 20%
+			position: relative
+			float: left
+			display: block
+			background-color: beige
+			color: white
+			z-index: 3
+			#cont_gallery
+				width: 103%
+				height: 100%
+				position: absolute
+				left: 0
+				top: 0
+				display: block
+				float: left
+				.item_gallery
+					width: 34%
+					height: 100%
+					position: absolute
+					top: 0
+					display: block
+				@for $i from 1 through 3
+					#item_gallery_#{$i}
+						left:  ($i - 1)  * 34%
+						background-color: #333333 + ($i * #111111 )
+
+		#gallery_popup
+			width: 100%
+			height: 100%
+			position: fixed
+			left: 0
+			top: 0
+			z-index: 40
+			background-color: darkseagreen
+			display: none
+			#popup_container
+				width: 100%
+				height: 100%
+				position: absolute
+				float: left
+				left: 0
+				top: 0
+			#popup_close
+				width: 50px
+				height: 50px
+				display: block
+				position: absolute
+				right: 0
+				top: 0
+				text-align: center
+				z-index: 10
+				background-color: olive
+			#popup_slider
+				width: 1000%
+				height: 100%
+				position: absolute
+				float: left
+				left: 0
+				top: 0
+				.popup_item
+					width: 10%
+					height: 100%
+					position: relative
+					float: left
+					.popup_item_container
+						width: 500px
+						height: 250px
+						@extend .block_centered
+						margin-left: -250px
+						margin-top: -125px
+						text-align: center
+
+			#popup_left_container
+				width: 50px
+				height: 100px
+				position: absolute
+				left: 0
+				top: 50%
+				margin-top: -50px	
+				z-index: 41
+				background-color: gray
+			#popup_left_container.active				
+				background-color: olive
+			
+			#popup_right_container
+				width: 50px
+				height: 100px
+				position: absolute
+				right: 0
+				top: 50%
+				margin-top: -50px	
+				z-index: 41
+				background-color: gray
+			#popup_right_container.active
+				background-color: olive
+
+			#popup_buttons_container
+				width: 1000px
+				height: 50px
+				position: absolute
+				left: 50%
+				bottom: 15px
+				margin-left: -500px	
+				z-index: 41
+				background-color: olive
+				.popup_button
+					width: 100px
+					height: 50px
+					position: relative
+					float: left
+					display: block
+					margin-left: 10px
+					text-align: center
+					border: 1px solid olive
+				.popup_button:hover
+					border: 1px solid white
+				.popup_button.active
+					border: 1px solid white
+
+
+
+
+
+
+

@@ -1,0 +1,430 @@
+.block_centered, #full_container #loading #loading_container, #full_container #stage #home #home_container, #full_container #stage #intro .intro_section .highlight_container, #full_container #stage #gallery_popup #popup_slider .popup_item .popup_item_container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  float: left;
+  overflow: hidden;
+}
+
+#full_container {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: relative;
+  float: left;
+}
+#full_container #loading {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  float: left;
+  display: block;
+  z-index: 40;
+  background-color: lightgray;
+}
+#full_container #loading #loading_container {
+  width: 250px;
+  height: 50px;
+  margin-left: -15px;
+  margin-top: -25px;
+  color: black;
+  text-align: center;
+}
+#full_container #stage {
+  width: 100%;
+  height: 500%;
+  display: block;
+  position: absolute;
+  float: left;
+  top: 0px;
+}
+#full_container #stage #header {
+  width: 100%;
+  height: 100px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 30;
+  background-color: lightblue;
+}
+#full_container #stage #header #logo {
+  width: 50px;
+  height: 50px;
+  background-color: darkblue;
+  position: relative;
+  float: left;
+  margin-left: 25px;
+  margin-top: 25px;
+}
+#full_container #stage #header #list {
+  width: 100px;
+  height: 50px;
+  position: relative;
+  float: right;
+  margin-right: 25px;
+  margin-top: 25px;
+}
+#full_container #stage #header #list a {
+  width: 100px;
+  height: 15px;
+  display: block;
+}
+#full_container #stage #menu_container {
+  width: 400px;
+  height: 20%;
+  position: fixed;
+  right: -300px;
+  top: 0;
+  z-index: 4;
+}
+#full_container #stage #menu_container #menu {
+  width: 100px;
+  height: 700px;
+  position: absolute;
+  left: 0;
+  top: 150px;
+}
+#full_container #stage #menu_container #menu a {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  display: block;
+  background-color: lightgreen;
+}
+#full_container #stage #menu_container #menu a.selected {
+  width: 50px;
+  height: 50px;
+}
+#full_container #stage #menu_container #menu #menu_item1 {
+  top: 0px;
+}
+#full_container #stage #menu_container #menu #menu_item2 {
+  top: 50px;
+}
+#full_container #stage #menu_container #menu #menu_item3 {
+  top: 100px;
+}
+#full_container #stage #menu_container #menu #menu_item4 {
+  top: 150px;
+}
+#full_container #stage #menu_container #menu #menu_item5 {
+  top: 200px;
+}
+#full_container #stage #menu_container #menu #menu_item6 {
+  top: 250px;
+}
+#full_container #stage #menu_container #menu #menu_item7 {
+  top: 300px;
+}
+#full_container #stage #home {
+  width: 100%;
+  height: 20%;
+  display: block;
+  position: relative;
+  float: left;
+  background-color: tomato;
+  z-index: 3;
+}
+#full_container #stage #home #home_container {
+  width: 500px;
+  height: 250px;
+  margin-left: -250px;
+  margin-top: -125px;
+  color: white;
+}
+#full_container #stage #bg_image {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 2;
+  top: 0%;
+}
+#full_container #stage #bg_image .intro_img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+#full_container #stage #bg_image #intro_img1.frame_1 {
+  background-image: url("../img/secuencia/secuencia_1.png");
+}
+#full_container #stage #bg_image #intro_img1.frame_2 {
+  background-image: url("../img/secuencia/secuencia_2.png");
+}
+#full_container #stage #bg_image #intro_img1.frame_3 {
+  background-image: url("../img/secuencia/secuencia_3.png");
+}
+#full_container #stage #bg_image #intro_img1.frame_4 {
+  background-image: url("../img/secuencia/secuencia_4.png");
+}
+#full_container #stage #bg_image #intro_img1.frame_5 {
+  background-image: url("../img/secuencia/secuencia_5.png");
+}
+#full_container #stage #bg_image #intro_img1.frame_6 {
+  background-image: url("../img/secuencia/secuencia_6.png");
+}
+#full_container #stage #bg_image #intro_img1.frame_7 {
+  background-image: url("../img/secuencia/secuencia_7.png");
+}
+#full_container #stage #bg_image #intro_img1.frame_8 {
+  background-image: url("../img/secuencia/secuencia_8.png");
+}
+#full_container #stage #bg_image #intro_img1.frame_9 {
+  background-image: url("../img/secuencia/secuencia_9.png");
+}
+#full_container #stage #bg_image #intro_img1.frame_10 {
+  background-image: url("../img/secuencia/secuencia_10.png");
+}
+#full_container #stage #bg_image #intro_img1.frame_11 {
+  background-image: url("../img/secuencia/secuencia_11.png");
+}
+#full_container #stage #bg_image #intro_img1.frame_12 {
+  background-image: url("../img/secuencia/secuencia_12.png");
+}
+#full_container #stage #bg_image #intro_img1.frame_13 {
+  background-image: url("../img/secuencia/secuencia_13.png");
+}
+#full_container #stage #bg_image #intro_img1.frame_14 {
+  background-image: url("../img/secuencia/secuencia_14.png");
+}
+#full_container #stage #bg_image #intro_img1.frame_15 {
+  background-image: url("../img/secuencia/secuencia_15.png");
+}
+#full_container #stage #bg_image #intro_img1.frame_16 {
+  background-image: url("../img/secuencia/secuencia_16.png");
+}
+#full_container #stage #bg_image #intro_img1.frame_17 {
+  background-image: url("../img/secuencia/secuencia_17.png");
+}
+#full_container #stage #bg_image #intro_img1.frame_18 {
+  background-image: url("../img/secuencia/secuencia_18.png");
+}
+#full_container #stage #bg_image #intro_img1.frame_19 {
+  background-image: url("../img/secuencia/secuencia_19.png");
+}
+#full_container #stage #bg_image #intro_img1.frame_20 {
+  background-image: url("../img/secuencia/secuencia_20.png");
+}
+#full_container #stage #bg_image #intro_img1.frame_21 {
+  background-image: url("../img/secuencia/secuencia_21.png");
+}
+#full_container #stage #bg_image #intro_img1.frame_22 {
+  background-image: url("../img/secuencia/secuencia_22.png");
+}
+#full_container #stage #bg_image #intro_img1.frame_23 {
+  background-image: url("../img/secuencia/secuencia_23.png");
+}
+#full_container #stage #bg_image #intro_img1.frame_24 {
+  background-image: url("../img/secuencia/secuencia_24.png");
+}
+#full_container #stage #bg_image #intro_img1.frame_25 {
+  background-image: url("../img/secuencia/secuencia_25.png");
+}
+#full_container #stage #bg_image #intro_img1.frame_26 {
+  background-image: url("../img/secuencia/secuencia_26.png");
+}
+#full_container #stage #bg_image #intro_img1.frame_27 {
+  background-image: url("../img/secuencia/secuencia_27.png");
+}
+#full_container #stage #bg_image #intro_img1.frame_28 {
+  background-image: url("../img/secuencia/secuencia_28.png");
+}
+#full_container #stage #bg_image #intro_img1.frame_29 {
+  background-image: url("../img/secuencia/secuencia_29.png");
+}
+#full_container #stage #bg_image #intro_img1.frame_30 {
+  background-image: url("../img/secuencia/secuencia_30.png");
+}
+#full_container #stage #intro {
+  width: 100%;
+  height: 60%;
+  position: relative;
+  float: left;
+  z-index: 3;
+}
+#full_container #stage #intro .intro_section {
+  width: 100%;
+  height: 33.3%;
+  display: block;
+  position: relative;
+  float: left;
+}
+#full_container #stage #intro .intro_section .intro_img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-position: center;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+#full_container #stage #intro .intro_section .highlight_container {
+  width: 500px;
+  height: 300px;
+  position: absolute;
+  z-index: 2;
+  margin-left: -250px;
+  margin-top: -150px;
+}
+#full_container #stage #intro .highlight {
+  width: 100%;
+  height: 400px;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+#full_container #stage #gallery {
+  width: 100%;
+  height: 20%;
+  position: relative;
+  float: left;
+  display: block;
+  background-color: beige;
+  color: white;
+  z-index: 3;
+}
+#full_container #stage #gallery #cont_gallery {
+  width: 103%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  float: left;
+}
+#full_container #stage #gallery #cont_gallery .item_gallery {
+  width: 34%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  display: block;
+}
+#full_container #stage #gallery #cont_gallery #item_gallery_1 {
+  left: 0%;
+  background-color: #444444;
+}
+#full_container #stage #gallery #cont_gallery #item_gallery_2 {
+  left: 34%;
+  background-color: #555555;
+}
+#full_container #stage #gallery #cont_gallery #item_gallery_3 {
+  left: 68%;
+  background-color: #666666;
+}
+#full_container #stage #gallery_popup {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 40;
+  background-color: darkseagreen;
+  display: none;
+}
+#full_container #stage #gallery_popup #popup_container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  float: left;
+  left: 0;
+  top: 0;
+}
+#full_container #stage #gallery_popup #popup_close {
+  width: 50px;
+  height: 50px;
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 0;
+  text-align: center;
+  z-index: 10;
+  background-color: olive;
+}
+#full_container #stage #gallery_popup #popup_slider {
+  width: 1000%;
+  height: 100%;
+  position: absolute;
+  float: left;
+  left: 0;
+  top: 0;
+}
+#full_container #stage #gallery_popup #popup_slider .popup_item {
+  width: 10%;
+  height: 100%;
+  position: relative;
+  float: left;
+}
+#full_container #stage #gallery_popup #popup_slider .popup_item .popup_item_container {
+  width: 500px;
+  height: 250px;
+  margin-left: -250px;
+  margin-top: -125px;
+  text-align: center;
+}
+#full_container #stage #gallery_popup #popup_left_container {
+  width: 50px;
+  height: 100px;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  margin-top: -50px;
+  z-index: 41;
+  background-color: gray;
+}
+#full_container #stage #gallery_popup #popup_left_container.active {
+  background-color: olive;
+}
+#full_container #stage #gallery_popup #popup_right_container {
+  width: 50px;
+  height: 100px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  margin-top: -50px;
+  z-index: 41;
+  background-color: gray;
+}
+#full_container #stage #gallery_popup #popup_right_container.active {
+  background-color: olive;
+}
+#full_container #stage #gallery_popup #popup_buttons_container {
+  width: 1000px;
+  height: 50px;
+  position: absolute;
+  left: 50%;
+  bottom: 15px;
+  margin-left: -500px;
+  z-index: 41;
+  background-color: olive;
+}
+#full_container #stage #gallery_popup #popup_buttons_container .popup_button {
+  width: 100px;
+  height: 50px;
+  position: relative;
+  float: left;
+  display: block;
+  margin-left: 10px;
+  text-align: center;
+  border: 1px solid olive;
+}
+#full_container #stage #gallery_popup #popup_buttons_container .popup_button:hover {
+  border: 1px solid white;
+}
+#full_container #stage #gallery_popup #popup_buttons_container .popup_button.active {
+  border: 1px solid white;
+}
