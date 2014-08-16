@@ -1,25 +1,27 @@
 (function(root) {
-  root.spritefy = {
-    interval_obj: null,
-    settings: null,
-    reverse: false,
-    init: function(_settings) {
-      this.settings = _settings;
+  return root.spritefy = function(_settings) {
+    this.interval_obj = null;
+    this.settings = _settings;
+    this.reverse = false;
+    this.init = function() {
+      var self;
       if (this.settings.restart === !void 0) {
         this.restart();
+      } else {
+        this.settings.element.className = " " + this.settings.element.className.trim();
       }
+      this.settings.current_frame = this.settings.from_frame;
       if (this.settings.current_frame > this.settings.total_frames) {
         this.reverse = true;
       } else {
         this.reverse = false;
       }
-      this.settings.current_frame = this.settings.from_frame;
-      this.interval_obj = setInterval(function() {
-        return root.spritefy.go();
+      self = this;
+      return this.interval_obj = setInterval(function() {
+        return self.go();
       }, this.settings.tbf);
-      return this;
-    },
-    go: function() {
+    };
+    this.go = function() {
       var obj, prev_frame;
       prev_frame = this.settings.current_frame;
       if (!this.reverse) {
@@ -40,14 +42,14 @@
           }
         }
       } else {
-        console.log(this.settings.current_frame);
-        return root.replace_class(this.settings.element, "frame_" + prev_frame, "frame_" + this.settings.current_frame);
+        root.remove_all_class(this.settings.element);
+        return root.add_class(this.settings.element, "frame_" + this.settings.current_frame);
       }
-    },
-    stop: function() {
+    };
+    this.stop = function() {
       return clearInterval(this.interval_obj);
-    },
-    restart: function() {
+    };
+    this.restart = function() {
       var class_array, i;
       i = 0;
       class_array = this.settings.element.className.split(" ");
@@ -60,6 +62,6 @@
       }
       this.settings.current_frame = this.settings.from_frame;
       return root.add_class(this.settings.element, "frame_" + this.settings.from_frame);
-    }
+    };
   };
 })(App);

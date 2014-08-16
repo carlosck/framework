@@ -107,5 +107,7 @@
 	c.css = (_element,_settings) ->		
 		for key, value of _settings			
 			_element.style[key] = value
+
+	# return this
 	
 )(App)
