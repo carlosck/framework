@@ -107,6 +107,8 @@
 	c.css = (_element,_settings) ->		
 		for key, value of _settings			
 			_element.style[key] = value
+	c.height = (_element) ->		
+		return parseInt(getComputedStyle(_element).height)
 
 	# return this
 	

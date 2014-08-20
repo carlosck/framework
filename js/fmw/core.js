@@ -59,7 +59,7 @@
       return _element['on' + _evType] = _callback;
     }
   };
-  return c.css = function(_element, _settings) {
+  c.css = function(_element, _settings) {
     var key, value, _results;
     _results = [];
     for (key in _settings) {
@@ -67,5 +67,8 @@
       _results.push(_element.style[key] = value);
     }
     return _results;
+  };
+  return c.height = function(_element) {
+    return parseInt(getComputedStyle(_element).height);
   };
 })(App);
