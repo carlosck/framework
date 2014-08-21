@@ -1,18 +1,20 @@
 (function(root) {
-  root.gallery = {
-    $left: null,
-    $right: null,
-    $menu: null,
-    $slider: null,
-    current: 0,
-    busy: false,
-    init: function(_settings) {
+  return root.simple_gallery = function(_settings) {
+    var busy, current;
+    this.$left = null;
+    this.$right = null;
+    this.$menu = null;
+    this.$slider = null;
+    this.easing = null;
+    current = 0;
+    busy = false;
+    this.init = function() {
       var i, self, _i, _ref, _results;
       this.$left = _settings.left;
       this.$right = _settings.right;
       this.$menu = _settings.menu;
       this.$slider = _settings.slider;
-      this.current = _settings.current;
+      this.current = _settings.current - 1;
       this.easing = null;
       root.add_class(this.$left, "active");
       root.add_class(this.$right, "active");
@@ -25,10 +27,12 @@
       });
       this.page(this.current);
       self = this;
-      root.set_on(this.$left, "click", function() {
+      root.set_on(this.$left, "click", function(event) {
+        event.preventDefault();
         return self.prev();
       });
-      root.set_on(this.$right, "click", function() {
+      root.set_on(this.$right, "click", function(event) {
+        event.preventDefault();
         return self.next();
       });
       _results = [];
@@ -42,8 +46,8 @@
         }));
       }
       return _results;
-    },
-    page: function(_page) {
+    };
+    this.page = function(_page) {
       var self;
       if (this.busy) {
         return false;
@@ -89,18 +93,18 @@
           }
         });
       }
-    },
-    prev: function() {
+    };
+    this.prev = function() {
       if (this.current === 0) {
         return false;
       }
       return this.page(this.current - 1);
-    },
-    next: function() {
+    };
+    this.next = function() {
       if (this.current === this.$menu.length - 1) {
         return false;
       }
       return this.page(this.current + 1);
-    }
+    };
   };
 })(App);

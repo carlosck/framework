@@ -11,22 +11,27 @@
 # right = @.find(@.$popup,"#popup_right_container")
 # menu_elements = @.find_all(@.$popup,".popup_button")
 # slider = @.find(@.$popup,"#popup_slider")		
-# @.gallery.init({left:left,right:right,menu:menu_elements,slider:slider,current:4,easing:"easeOutQuart"})
+# App.gallery_beetle = new App.simple_gallery({left:left_beetle, right:right_beetle, menu:menu_elements_beetle, slider:slider_beetle,current:1,easing:"easeOutQuart"})
+# App.gallery_beetle.init()
+# you can make calls to the function calling them as follow
+# App.gallery_beetle.next()
 
 ((root) ->
-	root.gallery = {
-		$left: null
-		$right: null
-		$menu: null
-		$slider: null
-		current: 0
-		busy : false
-		init: (_settings)->
+	root.simple_gallery= (_settings) ->
+		@$left= null
+		@$right= null
+		@$menu= null
+		@$slider= null
+		@easing = null
+		
+		current= 0
+		busy = false
+		@init= ->
 			@$left = _settings.left
 			@$right = _settings.right
 			@$menu = _settings.menu
 			@$slider = _settings.slider
-			@current = _settings.current
+			@current = _settings.current-1
 			@easing = null
 			root.add_class(@$left,"active")
 			root.add_class(@$right,"active")
@@ -41,11 +46,13 @@
 			
 			self = @
 
-			root.set_on(@$left,"click",->
+			root.set_on(@$left,"click",(event)->
+					event.preventDefault()
 					self.prev()
 				)
 
-			root.set_on(@$right,"click",->
+			root.set_on(@$right,"click",(event)->
+					event.preventDefault()
 					self.next()
 				)
 
@@ -59,9 +66,7 @@
 					self.page(_page)
 				)
 
-			
-			
-		page: (_page) ->
+		@page= (_page) ->
 			if @busy
 				return false 
 			_page = parseInt(_page)
@@ -97,17 +102,19 @@
 					self.busy= false
 					})
 
-		prev: ->			
+		@prev= ->			
 			if @current == 0
 				return false
 			
 			@page(@current-1)
-		next: ->			
+
+		@next= ->			
 			if @current == @$menu.length-1
 				return false
 			
 			@page(@current+1)
 
-	}
-	return 
+		return
+
+	 
 )(App)
