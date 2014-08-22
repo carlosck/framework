@@ -17,10 +17,22 @@
 		# _class_new :Type: string       :Example: "frame_1" , "item_"+i
 		# return null
 
-	c.remove_class= (_element,_class)  ->    
-		_element.className = _element.className.replace(" "+_class,"")    
+	c.remove_class= (_element,_class,_callback)  ->    
+		_element.className = _element.className.replace(" "+_class,"") 
+		if typeof _callback is "function" 
+    	_callback.call()
 	c.remove_all_class= (_element)  ->    
 		_element.className = ""
+	c.remove_all_class_startwith= (_element,_startwith)  ->    
+		i = 0
+		class_array = _element.className.split(" ")
+		_element.className = ""       
+		while i <= class_array.length-1
+								
+			if class_array[i].indexOf(_startwith) is -1            
+				root.add_class(_element,class_array[i])					
+			
+			i++ 	
 	c.add_class= (_element,_class) ->    
 		_element.className = _element.className + " "+_class
 	c.has_class= (_element,_class) ->    
@@ -109,6 +121,8 @@
 			_element.style[key] = value
 	c.height = (_element) ->		
 		return parseInt(getComputedStyle(_element).height)
+	c.width = (_element) ->		
+		return parseInt(getComputedStyle(_element).width)
 
 	# return this
 	

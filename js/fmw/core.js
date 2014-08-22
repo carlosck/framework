@@ -1,11 +1,28 @@
 (function(root) {
   var c;
   c = root;
-  c.remove_class = function(_element, _class) {
-    return _element.className = _element.className.replace(" " + _class, "");
+  c.remove_class = function(_element, _class, _callback) {
+    _element.className = _element.className.replace(" " + _class, "");
+    if (typeof _callback === "function") {
+      return _callback.call();
+    }
   };
   c.remove_all_class = function(_element) {
     return _element.className = "";
+  };
+  c.remove_all_class_startwith = function(_element, _startwith) {
+    var class_array, i, _results;
+    i = 0;
+    class_array = _element.className.split(" ");
+    _element.className = "";
+    _results = [];
+    while (i <= class_array.length - 1) {
+      if (class_array[i].indexOf(_startwith) === -1) {
+        root.add_class(_element, class_array[i]);
+      }
+      _results.push(i++);
+    }
+    return _results;
   };
   c.add_class = function(_element, _class) {
     return _element.className = _element.className + " " + _class;
@@ -68,7 +85,10 @@
     }
     return _results;
   };
-  return c.height = function(_element) {
+  c.height = function(_element) {
     return parseInt(getComputedStyle(_element).height);
+  };
+  return c.width = function(_element) {
+    return parseInt(getComputedStyle(_element).width);
   };
 })(App);

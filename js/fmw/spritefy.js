@@ -42,7 +42,7 @@
           }
         }
       } else {
-        root.remove_all_class(this.settings.element);
+        root.remove_all_class_startwith(this.settings.element, "frame");
         return root.add_class(this.settings.element, "frame_" + this.settings.current_frame);
       }
     };
