@@ -3,6 +3,9 @@
     root.scroll_to = {
       go: function(element, _animation, _settings) {
         var frames, initial_value, key, value;
+        this.isie = root.is_internet_explorer();
+        console.log("--Element --");
+        console.log(document.documentElement);
         for (key in _animation) {
           value = _animation[key];
           frames = _settings.duration / 10;
@@ -17,7 +20,11 @@
               to: value
             }, _settings, 1);
           } else if (value.toString().indexOf("px") !== -1) {
-            initial_value = element.scrollTop;
+            if (this.isie) {
+              initial_value = document.documentElement.scrollTop;
+            } else {
+              initial_value = element.scrollTop;
+            }
             this.animate_tick(element, {
               initial: initial_value,
               is_px: true,
@@ -27,7 +34,11 @@
               to: value
             }, _settings, 1);
           } else {
-            initial_value = element.scrollTop;
+            if (this.isie) {
+              initial_value = document.documentElement.scrollTop;
+            } else {
+              initial_value = element.scrollTop;
+            }
             this.animate_tick(element, {
               initial: initial_value,
               is_int: true,
@@ -65,7 +76,11 @@
         } else if (_from.is_px !== void 0) {
           current_value = current_value + "px";
         }
-        element.scrollTop = current_value;
+        if (this.isie) {
+          document.documentElement.scrollTop = current_value;
+        } else {
+          element.scrollTop = current_value;
+        }
         current_frame++;
         return setTimeout(function() {
           return self.animate_tick(element, _from, _animation, _settings, current_frame);

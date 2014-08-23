@@ -16,6 +16,9 @@
 		# _class     :Type: string       :Example: "frame_1" , "item_"+i
 		# _class_new :Type: string       :Example: "frame_1" , "item_"+i
 		# return null
+		
+		 								
+
 
 	c.remove_class= (_element,_class,_callback)  ->    
 		_element.className = _element.className.replace(" "+_class,"") 
@@ -35,7 +38,8 @@
 			i++ 	
 	c.add_class= (_element,_class) ->    
 		_element.className = _element.className + " "+_class
-	c.has_class= (_element,_class) ->    
+	c.has_class= (_element,_class) -> 
+		console.log _element   
 		if _element.className.indexOf(_class) != -1
 			return true
 		else
@@ -124,6 +128,33 @@
 	c.width = (_element) ->		
 		return parseInt(getComputedStyle(_element).width)
 
-	# return this
+	# 8 8888      88 8888888 8888888888  8 8888 8 8888           d888888o.
+	# 8 8888      88       8 8888        8 8888 8 8888         .`8888:' `88.
+	# 8 8888      88       8 8888        8 8888 8 8888         8.`8888.   Y8
+	# 8 8888      88       8 8888        8 8888 8 8888         `8.`8888.
+	# 8 8888      88       8 8888        8 8888 8 8888          `8.`8888.
+	# 8 8888      88       8 8888        8 8888 8 8888           `8.`8888.
+	# 8 8888      88       8 8888        8 8888 8 8888            `8.`8888.
+	# ` 8888     ,8P       8 8888        8 8888 8 8888        8b   `8.`8888.
+	#   8888   ,d8P        8 8888        8 8888 8 8888        `8b.  ;8.`8888
+	#    `Y88888P'         8 8888        8 8888 8 888888888888 `Y8888P ,88P'
+	c.is_internet_explorer = ->
+		ua = window.navigator.userAgent
+		msie = ua.indexOf("MSIE ")
+		if msie > -1 || !!navigator.userAgent.match(/Trident.*rv\:11\./)
+			return true
+		else
+			return false
+	c.get_internet_explorer_version = ->
+		ua = window.navigator.userAgent
+		msie = ua.indexOf("MSIE ")
+		return parseInt(ua.substring(msie + 5, ua.indexOf(".", msie)))
+	c.prevent_default	= (event) ->
+		if @is_internet_explorer
+			event.returnValue = false
+		else
+			event.preventDefault()
+
+
 	
 )(App)

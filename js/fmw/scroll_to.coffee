@@ -14,7 +14,9 @@
   root.scroll_to = {
   
   go:(element, _animation,_settings) ->
-        
+    @.isie = root.is_internet_explorer()
+    console.log "--Element --"
+    console.log document.documentElement    
     for key, value of _animation
       
       frames = _settings.duration / 10    
@@ -23,10 +25,17 @@
         initial_value = parseInt(element.style[key])         
         @.animate_tick(element,{initial:initial_value,is_percent: true,frames: frames},{property: key,to: value},_settings,1)
       else if value.toString().indexOf("px") != -1
-        initial_value = element.scrollTop                         
+        if @isie 
+          initial_value= document.documentElement.scrollTop
+        else
+          initial_value = element.scrollTop                         
         @.animate_tick(element,{initial:initial_value,is_px: true,frames: frames},{property: key,to: value},_settings,1)
       else
-        initial_value = element.scrollTop         
+        if @isie 
+          initial_value= document.documentElement.scrollTop
+        else
+          initial_value = element.scrollTop  
+                 
         @.animate_tick(element,{initial:initial_value,is_int: true,frames: frames},{property: key,to: value},_settings,1)
 
     this
@@ -55,8 +64,11 @@
       current_value= current_value + "%"
     else if _from.is_px != undefined
       current_value= current_value + "px"           
-            
-    element.scrollTop= current_value
+    
+    if @isie 
+      document.documentElement.scrollTop= current_value
+    else
+      element.scrollTop= current_value
     
     current_frame++
     

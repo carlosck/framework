@@ -36,11 +36,12 @@
         img = null
         img= new Image()
         img.onload = ->
-          self.update()
+          laimg = this
+          self.update(laimg)
         img.src = @img_array[i]
 
       return  
-    update: ->
+    update:(img) ->
       
       @current++
       if @current == @total
@@ -49,7 +50,7 @@
       else
         if @on_update != undefined
           pc = (@current * 100 ) / @total
-          obj = {current : @current,total : @total,percent: pc}
+          obj = {current : @current,total : @total,percent: pc,image: img}
           @on_update.call(null,obj)
 
   }
