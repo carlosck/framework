@@ -72,7 +72,7 @@
 					if typeof @.settings.callback is "function"
 						@.settings.callback.call()
 			else 
-				# console.log  @.settings.element+" "+@.settings.current_frame+" "+prev_frame  
+				
 				# root.replace_class(@.settings.element,"frame_"+prev_frame,"frame_"+@.settings.current_frame)
 				# root.remove_all_class(@.settings.element)
 				root.remove_all_class_startwith(@.settings.element,"frame")

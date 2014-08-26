@@ -317,14 +317,26 @@ body, html {
 #full_container #stage #gallery #cont_gallery #item_gallery_1 {
   left: 0%;
   background-color: #444444;
+  color: white;
 }
 #full_container #stage #gallery #cont_gallery #item_gallery_2 {
   left: 34%;
   background-color: #555555;
+  color: white;
 }
 #full_container #stage #gallery #cont_gallery #item_gallery_3 {
   left: 68%;
   background-color: #666666;
+  color: white;
+}
+#full_container #stage #gallery #cont_gallery .gallery_item_container {
+  width: 150px;
+  height: 50px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -75px;
+  margin-top: -25px;
 }
 #full_container #stage #gallery_popup {
   width: 100%;

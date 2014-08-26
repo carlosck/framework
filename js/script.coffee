@@ -47,7 +47,8 @@ App =
 			App.set_on(element,"click",App.gallery_click)
 		)
 
-		@.set_on(App.find(App.$popup,"#popup_close"),"click",->
+		@.set_on(App.find(App.$popup,"#popup_close"),"click", (event)->
+			App.prevent_default(event)
 			App.popup_close()
 
 			)
@@ -57,7 +58,12 @@ App =
 		menu_elements = @.find_all(@.$popup,".popup_button")
 		slider = @.find(@.$popup,"#popup_slider")		
 
-		@.gallery.init({left:left,right:right,menu:menu_elements,slider:slider,current:4,easing:"easeOutQuart"})
+		
+		
+		@.gallery = new App.simple_gallery({left:left, right:right, menu:menu_elements, slider:slider,current:1,easing:"easeOutQuart"})
+		@.gallery.init()
+		
+		
 
 		@.preload()
 		
@@ -121,7 +127,7 @@ App =
 	menu_click: (e) ->
 		
 		e = event || window.event
-		e.preventDefault()
+		App.prevent_default(e)
 		
 		page = e.target.id.replace("menu_item","")
 
@@ -131,7 +137,7 @@ App =
 	gallery_click: (e) ->
 		
 		e = event || window.event
-		e.preventDefault()
+		App.prevent_default(e)
 		
 		page = e.target.id.replace("item_gallery_","")
 
@@ -169,11 +175,15 @@ App =
 		frame_to = 0				
 		switch _page
 			when 2 
-				App.spritefy.init({element: @sprite_container,from_frame: 1 ,total_frames: 10 ,tbf:100 ,restart: true})		
+				App.animation_menu_home = new App.spritefy({element: @sprite_container,from_frame: 1 ,total_frames: 10 ,tbf:100 ,restart: true})			
+				App.animation_menu_home.init()
+
 			when 3 
-				App.spritefy.init({element: @sprite_container,from_frame: 11 ,total_frames: 20 ,tbf:100,restart: true})		
+				App.animation_menu_home = new App.spritefy({element: @sprite_container,from_frame: 11 ,total_frames: 20 ,tbf:100 ,restart: true})			
+				App.animation_menu_home.init()
 			when 4 
-				App.spritefy.init({element: @sprite_container,from_frame: 21 ,total_frames: 30 ,tbf:100,restart: true})
+				App.animation_menu_home = new App.spritefy({element: @sprite_container,from_frame: 21 ,total_frames: 30 ,tbf:100 ,restart: true})			
+				App.animation_menu_home.init()
 
 		
 		@.section = _page		
@@ -197,10 +207,9 @@ App =
 								
 		@.animate.to(@.$popup,{"opacity":0},{duration: 100,callback: ->
 			App.css(App.$popup,{"opacity":0,"display":"none"})
-			App.scroll_busy= true
+			App.scroll_busy= false
 
 		})
-
 
 
 document.addEventListener 'DOMContentLoaded', ->	

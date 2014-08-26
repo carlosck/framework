@@ -47,12 +47,12 @@
 			self = @
 
 			root.set_on(@$left,"click",(event)->
-					event.preventDefault()
+					root.prevent_default(event)
 					self.prev()
 				)
 
 			root.set_on(@$right,"click",(event)->
-					event.preventDefault()
+					root.prevent_default(event)
 					self.next()
 				)
 
@@ -60,8 +60,9 @@
 				_i = i
 				
 				root.set_on(@$menu[i],"click",(event) ->
-					event.preventDefault()
-					_page= event.target.getAttribute("page")
+					root.prevent_default(event)
+
+					_page= root.get_target(event).getAttribute("page")
 					
 					self.page(_page)
 				)

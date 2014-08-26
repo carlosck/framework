@@ -39,7 +39,7 @@
 	c.add_class= (_element,_class) ->    
 		_element.className = _element.className + " "+_class
 	c.has_class= (_element,_class) -> 
-		console.log _element   
+		
 		if _element.className.indexOf(_class) != -1
 			return true
 		else
@@ -123,6 +123,10 @@
 	c.css = (_element,_settings) ->		
 		for key, value of _settings			
 			_element.style[key] = value
+
+	# _element  :Type: html element :Example: App.$menu , App.byId("menu") , document.getElementByid("menu")	
+	# return    int
+	# example @.height(@$full_container)
 	c.height = (_element) ->		
 		return parseInt(getComputedStyle(_element).height)
 	c.width = (_element) ->		
@@ -138,10 +142,23 @@
 	# ` 8888     ,8P       8 8888        8 8888 8 8888        8b   `8.`8888.
 	#   8888   ,d8P        8 8888        8 8888 8 8888        `8b.  ;8.`8888
 	#    `Y88888P'         8 8888        8 8888 8 888888888888 `Y8888P ,88P'
+
+	# return    boolean
+	# example if @is_internet_explorer()
+
 	c.is_internet_explorer = ->
-		ua = window.navigator.userAgent
-		msie = ua.indexOf("MSIE ")
-		if msie > -1 || !!navigator.userAgent.match(/Trident.*rv\:11\./)
+		ua = window.navigator.userAgent		
+		msie = ua.indexOf("MSIE ")		
+
+		if msie > -1 or navigator.userAgent.match(/Trident.*rv\:11\./)
+			return true
+		else
+			return false
+	c.is_firefox = ->
+		ua = window.navigator.userAgent		
+		msff = ua.indexOf("Firefox")		
+
+		if msff > -1 
 			return true
 		else
 			return false
@@ -149,11 +166,26 @@
 		ua = window.navigator.userAgent
 		msie = ua.indexOf("MSIE ")
 		return parseInt(ua.substring(msie + 5, ua.indexOf(".", msie)))
-	c.prevent_default	= (event) ->
-		if @is_internet_explorer
-			event.returnValue = false
+	# event  : js event
+	# return    null
+	# example @set_on(@.popup_btn,"click", (event)->
+	#  App.prevent_default(event)
+
+	c.prevent_default	= (_event) ->
+		if @is_internet_explorer()						
+			_event.returnValue = false
 		else
-			event.preventDefault()
+			_event.preventDefault()
+	# event  : js event
+	# return : Type: html element 
+	# example: _event= App.get_target(e)
+	# page = _event.getAttribute("page")	
+	
+
+	c.get_target = (_event) ->
+		e= _event.target || _event.srcElement		
+		return e
+		
 
 
 	

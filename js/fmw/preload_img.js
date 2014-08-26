@@ -12,7 +12,6 @@
         this.total = this.img_array.length - 1;
         this.on_update = _on_update;
         this.on_complete = _on_complete;
-        console.log(this.total);
         self = this;
         for (i = _i = 0, _ref = this.total - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
           img = null;

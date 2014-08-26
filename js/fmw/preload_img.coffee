@@ -30,7 +30,7 @@
       @total = @img_array.length-1
       @on_update = _on_update
       @on_complete = _on_complete
-      console.log @total
+      
       self = @
       for i in [0..@total-1]
         img = null

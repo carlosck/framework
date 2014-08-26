@@ -28,11 +28,11 @@
       this.page(this.current);
       self = this;
       root.set_on(this.$left, "click", function(event) {
-        event.preventDefault();
+        root.prevent_default(event);
         return self.prev();
       });
       root.set_on(this.$right, "click", function(event) {
-        event.preventDefault();
+        root.prevent_default(event);
         return self.next();
       });
       _results = [];
@@ -40,8 +40,8 @@
         _i = i;
         _results.push(root.set_on(this.$menu[i], "click", function(event) {
           var _page;
-          event.preventDefault();
-          _page = event.target.getAttribute("page");
+          root.prevent_default(event);
+          _page = root.get_target(event).getAttribute("page");
           return self.page(_page);
         }));
       }

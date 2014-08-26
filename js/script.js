@@ -35,21 +35,23 @@ App = {
     elements = this.each(this.$gallery, ".item_gallery", function(element, i) {
       return App.set_on(element, "click", App.gallery_click);
     });
-    this.set_on(App.find(App.$popup, "#popup_close"), "click", function() {
+    this.set_on(App.find(App.$popup, "#popup_close"), "click", function(event) {
+      App.prevent_default(event);
       return App.popup_close();
     });
     left = this.find(this.$popup, "#popup_left_container");
     right = this.find(this.$popup, "#popup_right_container");
     menu_elements = this.find_all(this.$popup, ".popup_button");
     slider = this.find(this.$popup, "#popup_slider");
-    this.gallery.init({
+    this.gallery = new App.simple_gallery({
       left: left,
       right: right,
       menu: menu_elements,
       slider: slider,
-      current: 4,
+      current: 1,
       easing: "easeOutQuart"
     });
+    this.gallery.init();
     return this.preload();
   },
   preload: function() {
@@ -117,14 +119,14 @@ App = {
   menu_click: function(e) {
     var page;
     e = event || window.event;
-    e.preventDefault();
+    App.prevent_default(e);
     page = e.target.id.replace("menu_item", "");
     App.change_page(parseInt(page));
   },
   gallery_click: function(e) {
     var page;
     e = event || window.event;
-    e.preventDefault();
+    App.prevent_default(e);
     page = e.target.id.replace("item_gallery_", "");
     App.popup_open(parseInt(page));
   },
@@ -197,31 +199,34 @@ App = {
     frame_to = 0;
     switch (_page) {
       case 2:
-        App.spritefy.init({
+        App.animation_menu_home = new App.spritefy({
           element: this.sprite_container,
           from_frame: 1,
           total_frames: 10,
           tbf: 100,
           restart: true
         });
+        App.animation_menu_home.init();
         break;
       case 3:
-        App.spritefy.init({
+        App.animation_menu_home = new App.spritefy({
           element: this.sprite_container,
           from_frame: 11,
           total_frames: 20,
           tbf: 100,
           restart: true
         });
+        App.animation_menu_home.init();
         break;
       case 4:
-        App.spritefy.init({
+        App.animation_menu_home = new App.spritefy({
           element: this.sprite_container,
           from_frame: 21,
           total_frames: 30,
           tbf: 100,
           restart: true
         });
+        App.animation_menu_home.init();
     }
     this.section = _page;
     return this.animate.to(this.$stage, {
@@ -259,7 +264,7 @@ App = {
           "opacity": 0,
           "display": "none"
         });
-        return App.scroll_busy = true;
+        return App.scroll_busy = false;
       }
     });
   }
