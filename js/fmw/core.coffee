@@ -166,6 +166,9 @@
 		ua = window.navigator.userAgent
 		msie = ua.indexOf("MSIE ")
 		return parseInt(ua.substring(msie + 5, ua.indexOf(".", msie)))
+	c.is_mobile = ->
+		@mobileWeb = /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile|Kindle|NetFront|Silk-Accelerated|(hpw|web)OS|Fennec|Minimo|Opera M(obi|ini)|Blazer|Dolfin|Dolphin|Skyfire|Zune/i.test(navigator.userAgent)
+		return @mobileWeb
 	# event  : js event
 	# return    null
 	# example @set_on(@.popup_btn,"click", (event)->

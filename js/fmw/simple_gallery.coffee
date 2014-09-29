@@ -76,18 +76,18 @@
 			@current = _page
 			
 
-			if _page == 0
-				root.remove_class(@$left,"active")
-			else
-				if !root.has_class(@$left,"active") 
-					root.add_class(@$left,"active")
+			# if _page == 0
+			# 	root.remove_class(@$left,"active")
+			# else
+			# 	if !root.has_class(@$left,"active") 
+			# 		root.add_class(@$left,"active")
 
 
-			if _page == @$menu.length-1
-				root.remove_class(@$right,"active")
-			else
-				if !root.has_class(@$right,"active") 
-					root.add_class(@$right,"active")
+			# if _page == @$menu.length-1
+			# 	root.remove_class(@$right,"active")
+			# else
+			# 	if !root.has_class(@$right,"active") 
+			# 		root.add_class(@$right,"active")
 
 			self = @
 			root.remove_class(App.find(self.$menu[0].parentNode,".popup_button.active"),"active")
@@ -95,25 +95,27 @@
 			
 			@current= _page
 			if @easing != null			
-				root.animate.to(@$slider,{"left":(@current * -100) + "%"},{duration: 500,easing:@easing, callback: ->
+				obj= new root.animate(@$slider,{"left":(@current * -100) + "%"},{duration: 500,easing:@easing, callback: ->
 					self.busy= false
 					})
+				obj.init()
 			else
-				root.animate.to(@$slider,{"left":(@current * -100) + "%"},{duration: 500,callback: ->
+				obj= new root.animate(@$slider,{"left":(@current * -100) + "%"},{duration: 500,callback: ->
 					self.busy= false
 					})
+				obj.init()
 
 		@prev= ->			
 			if @current == 0
-				return false
-			
-			@page(@current-1)
+				@page(@$menu.length-1)
+			else
+				@page(@current-1)
 
 		@next= ->			
 			if @current == @$menu.length-1
-				return false
-			
-			@page(@current+1)
+				@page(0)
+			else
+				@page(@current+1)
 
 		return
 

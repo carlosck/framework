@@ -48,33 +48,19 @@
       return _results;
     };
     this.page = function(_page) {
-      var self;
+      var obj, self;
       if (this.busy) {
         return false;
       }
       _page = parseInt(_page);
       this.busy = true;
       this.current = _page;
-      if (_page === 0) {
-        root.remove_class(this.$left, "active");
-      } else {
-        if (!root.has_class(this.$left, "active")) {
-          root.add_class(this.$left, "active");
-        }
-      }
-      if (_page === this.$menu.length - 1) {
-        root.remove_class(this.$right, "active");
-      } else {
-        if (!root.has_class(this.$right, "active")) {
-          root.add_class(this.$right, "active");
-        }
-      }
       self = this;
       root.remove_class(App.find(self.$menu[0].parentNode, ".popup_button.active"), "active");
       root.add_class(this.$menu[_page], "active");
       this.current = _page;
       if (this.easing !== null) {
-        return root.animate.to(this.$slider, {
+        obj = new root.animate(this.$slider, {
           "left": (this.current * -100) + "%"
         }, {
           duration: 500,
@@ -83,8 +69,9 @@
             return self.busy = false;
           }
         });
+        return obj.init();
       } else {
-        return root.animate.to(this.$slider, {
+        obj = new root.animate(this.$slider, {
           "left": (this.current * -100) + "%"
         }, {
           duration: 500,
@@ -92,19 +79,22 @@
             return self.busy = false;
           }
         });
+        return obj.init();
       }
     };
     this.prev = function() {
       if (this.current === 0) {
-        return false;
+        return this.page(this.$menu.length - 1);
+      } else {
+        return this.page(this.current - 1);
       }
-      return this.page(this.current - 1);
     };
     this.next = function() {
       if (this.current === this.$menu.length - 1) {
-        return false;
+        return this.page(0);
+      } else {
+        return this.page(this.current + 1);
       }
-      return this.page(this.current + 1);
     };
   };
 })(App);

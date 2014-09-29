@@ -1,74 +1,83 @@
 (function(root) {
-  root.animate = {
-    to: function(element, _animation, _settings) {
-      var frames, initial_value, key, value;
+  return root.animate = function(element, _animation, _settings) {
+    this.busy = false;
+    this.interval_obj = null;
+    this.current_frame = 0;
+    this.array_animation = new Array();
+    this.init = function() {
+      var frames, key, obj, self, value;
+      self = this;
+      if (this.busy) {
+        return false;
+      }
+      this.busy = true;
+      this.animations = new Array();
+      frames = _settings.duration / 10;
       for (key in _animation) {
         value = _animation[key];
-        frames = _settings.duration / 10;
+        obj = new Object();
         if (value.toString().indexOf("%") !== -1) {
-          initial_value = parseInt(element.style[key]);
-          this.animate_tick(element, {
-            initial: initial_value,
-            is_percent: true,
-            frames: frames
-          }, {
-            property: key,
-            to: value
-          }, _settings, 1);
+          obj.initial_value = parseInt(element.style[key]);
+          obj.measure = "percent";
+          obj.to_value = value;
+          obj.property_to_animate = key;
         } else if (value.toString().indexOf("px") !== -1) {
-          initial_value = getComputedStyle(element)[key];
-          this.animate_tick(element, {
-            initial: initial_value,
-            is_px: true,
-            frames: frames
-          }, {
-            property: key,
-            to: value
-          }, _settings, 1);
+          obj.initial_value = getComputedStyle(element)[key];
+          obj.measure = "pixels";
+          obj.to_value = value;
+          obj.property_to_animate = key;
         } else {
-          initial_value = getComputedStyle(element)[key];
-          this.animate_tick(element, {
-            initial: initial_value,
-            is_int: true,
-            frames: frames
-          }, {
-            property: key,
-            to: value
-          }, _settings, 1);
+          obj.initial_value = getComputedStyle(element)[key];
+          obj.measure = "int";
+          obj.to_value = value;
+          obj.property_to_animate = key;
         }
+        this.array_animation.push(obj);
       }
-      return this;
-    },
-    animate_tick: function(element, _from, _animation, _settings, current_frame) {
-      var chunk, current_value, final, fn, initial, self;
-      self = this;
-      if (current_frame > _from.frames) {
+      this.current_frame = 1;
+      return self.interval_obj = setInterval(function() {
+        return self.animate_tick(element, frames, _settings);
+      }, 10);
+    };
+    this.animate_tick = function(element, _frames, _settings) {
+      var $i, chunk, current_value, final, fn, initial, obj, _i, _ref;
+      if (this.current_frame > _frames) {
+        this.stop();
         if (typeof _settings.callback === "function") {
+          this.busy = false;
           _settings.callback.call();
         }
         return false;
       }
-      initial = parseInt(_from.initial);
-      final = parseInt(_animation.to);
-      if (_settings.easing === void 0) {
-        chunk = (final - initial) / _from.frames;
-        current_value = initial + (chunk * current_frame);
-      } else {
-        fn = window[_settings.easing];
-        if (typeof fn === "function") {
-          current_value = fn.apply(this, new Array(current_frame, initial, final - initial, _from.frames));
+      for ($i = _i = 0, _ref = this.array_animation.length - 1; _i <= _ref; $i = _i += 1) {
+        obj = this.array_animation[$i];
+        initial = parseInt(obj.initial_value);
+        final = parseInt(obj.to_value);
+        if (_settings.easing === void 0) {
+          chunk = (final - initial) / _frames;
+          current_value = initial + (chunk * this.current_frame);
+        } else {
+          fn = window[_settings.easing];
+          if (typeof fn === "function") {
+            current_value = fn.apply(this, new Array(this.current_frame, initial, final - initial, _frames));
+          }
         }
+        if (obj.measure === "percent") {
+          current_value = current_value + "%";
+        } else if (obj.measure === "pixels") {
+          current_value = current_value + "px";
+        }
+        element.style[obj.property_to_animate] = current_value;
       }
-      if (_from.is_percent !== void 0) {
-        current_value = current_value + "%";
-      } else if (_from.is_px !== void 0) {
-        current_value = current_value + "px";
-      }
-      element.style[_animation.property] = current_value;
-      current_frame++;
-      return setTimeout(function() {
-        return self.animate_tick(element, _from, _animation, _settings, current_frame);
-      }, 10);
+      return this.current_frame++;
+    };
+    this.stop = function() {
+      clearInterval(this.interval_obj);
+      this.busy = false;
+      return false;
+    };
+    if (_settings.autostart === void 0) {
+      this.init();
     }
   };
 })(App);

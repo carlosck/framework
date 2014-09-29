@@ -11,60 +11,94 @@
 
 ((root) ->
 
-  root.animate = {
-  
-  to:(element, _animation,_settings) ->
-        
-    for key, value of _animation
+  root.animate = (element, _animation,_settings) ->
+    @busy = false
+    @interval_obj = null
+    @current_frame=0
+    @array_animation= new Array()
+    
+    @init= ->
+      self = @ 
       
+      if @busy
+        return false    
+      @busy = true
+      @animations= new Array()
       frames = _settings.duration / 10    
-      
-      if value.toString().indexOf("%") != -1      
-        initial_value = parseInt(element.style[key])         
-        @.animate_tick(element,{initial:initial_value,is_percent: true,frames: frames},{property: key,to: value},_settings,1)
-      else if value.toString().indexOf("px") != -1
-        initial_value = getComputedStyle(element)[key]         
-        @.animate_tick(element,{initial:initial_value,is_px: true,frames: frames},{property: key,to: value},_settings,1)
-      else
-        initial_value = getComputedStyle(element)[key]         
-        @.animate_tick(element,{initial:initial_value,is_int: true,frames: frames},{property: key,to: value},_settings,1)
 
-    this
+      for key, value of _animation                
+        obj= new Object()
+        if value.toString().indexOf("%") != -1      
+          obj.initial_value = parseInt(element.style[key])         
+          obj.measure= "percent"
+          obj.to_value= value
+          obj.property_to_animate= key
+          
+        else if value.toString().indexOf("px") != -1
+          
+          obj.initial_value = getComputedStyle(element)[key]
+          obj.measure= "pixels"
+          obj.to_value= value         
+          obj.property_to_animate= key
+          
+        else
+          obj.initial_value = getComputedStyle(element)[key]
+          obj.measure= "int"
+          obj.to_value= value 
+          obj.property_to_animate= key
+                
+        @array_animation.push obj        
 
-  animate_tick: (element, _from, _animation,_settings,current_frame) ->
-    # callback at the end of the animation if needed
-    self = this
-    if current_frame > _from.frames     
-      if typeof _settings.callback is "function" 
-        _settings.callback.call()
-      return false
+      @current_frame = 1        
+      self.interval_obj = setInterval( ->
+        self.animate_tick(element,frames,_settings)
+      ,10)
 
-    initial = parseInt(_from.initial)
-    final = parseInt(_animation.to)
-    
-    # when easing is defined we need the "js/libs/easing.js from penner-kirupa"
-    if _settings.easing is undefined
-      chunk= ( final - initial ) / _from.frames
-      current_value=  initial  + (chunk  * current_frame)
-    else
-      fn = window[_settings.easing]
-      if typeof fn is "function"
-        current_value= fn.apply(this,new Array(current_frame, initial, (final - initial), _from.frames))
-    # if the animation is on % px or int
-    if _from.is_percent != undefined
-      current_value= current_value + "%"
-    else if _from.is_px != undefined
-      current_value= current_value + "px"           
-    
+    @animate_tick= (element, _frames, _settings) ->
+      # callback at the end of the animation if needed      
+      if @current_frame > _frames        
+        @.stop()
+        if typeof _settings.callback is "function"           
+          @busy= false
+          _settings.callback.call()
+        return false
+
+      for $i in [0..@array_animation.length-1] by 1
+
+        obj = @array_animation[$i]  
+        initial = parseInt(obj.initial_value)
+        final = parseInt(obj.to_value)
         
-    element.style[_animation.property] = current_value
+        # when easing is defined we need the "js/libs/easing.js from penner-kirupa"
+        if _settings.easing is undefined
+          chunk= ( final - initial ) / _frames
+          current_value=  initial  + (chunk  * @current_frame)
+        else
+          fn = window[_settings.easing]
+          if typeof fn is "function"
+            current_value= fn.apply(this,new Array(@current_frame, initial, (final - initial), _frames))
+        # if the animation is on % px or int
+        if obj.measure == "percent"
+          current_value= current_value + "%"
+        else if obj.measure is "pixels"
+          current_value= current_value + "px"           
+                
+        element.style[obj.property_to_animate] = current_value
+        
+      @current_frame++
+
+                
+    @stop= ->
+      
+      clearInterval(@.interval_obj)
+      @busy = false
+      return false
     
-    current_frame++
-    
-    setTimeout( ->
-      self.animate_tick(element, _from, _animation,_settings,current_frame)
-    ,10)
-  }
-  # Anonymous function empty return
-  return
+    if _settings.autostart is undefined
+      @init()
+
+    return
+  
+  
+  
 )(App)
