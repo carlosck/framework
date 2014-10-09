@@ -64,6 +64,11 @@
 		# _parent :Type: html element :Example: App.$menu , App.byId("menu") , document.getElementByid("menu")
 		# _callback :Type: function :Example:  -> console.log , App.key_up}
 		# return  :Type: html element
+
+		#each 
+		# @.each(App.$menu,".answer_left", (element, i)->					
+		# 	App.set_on(element,"mouseenter",App.open_left)
+		# )
 	c.selector_all	= (_item)->
 		return document.querySelectorAll( _item )
 	c.by_id= (_item)->
