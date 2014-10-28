@@ -21,7 +21,17 @@
 
 
 	c.remove_class= (_element,_class,_callback)  ->    
+		array= _element.className.split(" ")
 		_element.className = _element.className.replace(" "+_class,"") 
+		found = false
+		count = 0
+		while !found and count < array.length
+			if array[count] is _class
+				array[count]= ''
+				found = true
+			else
+				count++
+		_element.className= array.join(" ")
 		if typeof _callback is "function" 
     	_callback.call()
 	c.remove_all_class= (_element)  ->    

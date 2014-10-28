@@ -27,6 +27,7 @@
 		@array_transform= new Array()
 		@array_initial = null
 		@cadena_initial = null
+		@frate = 50
 		@init= ->
 			self = @ 
 			
@@ -34,7 +35,7 @@
 				return false    
 			@busy = true
 			@animations= new Array()
-			frames = _settings.duration / 10    
+			frames = _settings.duration / @frate    
 
 			for key, value of _animation                
 				obj= new Object()
@@ -69,7 +70,7 @@
 					
 				
 				if _settings.is_filter != undefined        
-					obj.initial_value= document.defaultView.getComputedStyle(element,null).getPropertyValue("-webkit-filter").replace(key,"").replace("(","").replace(")","")
+					obj.initial_value= document.defaultView.getComputedStyle(element,null).getPropertyValue("filter").replace(key,"").replace("(","").replace(")","")
 					if obj.initial_value is "none"
 						obj.initial_value= 0
 
@@ -88,7 +89,7 @@
 							obj.key = key
 							
 							obj.initial_value= @array_initial[cont].replace(key,"").replace("(","").replace(")","").replace("deg","").replace("px","")
-							
+							# console.log obj.initial_value
 
 						cont++ 
 					# dejamos a un lado las matrices me dedico a los string es más fácil :D
@@ -138,10 +139,20 @@
 
 				@array_animation.push obj        
 
-			@current_frame = 1        
-			self.interval_obj = setInterval( ->
-				self.animate_tick(element,frames,_settings)
-			,10)
+			@current_frame = 1     
+			if _settings.delay != undefined
+				setTimeout(
+					->
+						self.interval_obj = setInterval( ->
+							self.animate_tick(element,frames,_settings)
+						,@frate)
+
+					,_settings.delay)
+			else
+				self.interval_obj = setInterval( ->
+					self.animate_tick(element,frames,_settings)
+				,@frate)
+			
 
 		@animate_tick= (element, _frames, _settings) ->
 			# callback at the end of the animation if needed      
@@ -168,8 +179,9 @@
 							
 
 							
-							initial = parseInt(obj.initial_value)
-							final = parseInt(obj.to_value)
+							initial = parseFloat(obj.initial_value)
+							final = parseFloat(obj.to_value)
+							
 							if _settings.easing is undefined
 								chunk= ( final - initial ) / _frames
 								current_value=  initial  + (chunk  * @current_frame)
@@ -184,13 +196,13 @@
 								current_value= current_value + "px"
 							else if obj.measure is "deg"
 								current_value= current_value + "deg"
-							# console.log "current"+current_value
+							# console.log "current->"+current_value
 							
 							cadena = cadena.replace(@array_initial[cont],obj.key+"("+current_value+")")
 							
 							
 						cont++
-				console.log cadena
+				# console.log cadena
 				root.css(element,{"transform": cadena})
 			else
 				for $i in [0..@array_animation.length-1] by 1
@@ -215,9 +227,9 @@
 									
 					if _settings.is_filter != undefined
 						cadena = obj.property_to_animate+"("+current_value+")"
-						root.css(element,{"-webkit-filter": cadena})
+						root.css(element,{"filter": cadena})
 					else
-
+						
 						element.style[obj.property_to_animate] = current_value
 						
 											
