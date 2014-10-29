@@ -214,11 +214,11 @@
 					# when easing is defined we need the "js/libs/easing.js from penner-kirupa"
 					if _settings.easing is undefined
 						chunk= ( final - initial ) / _frames
-						current_value=  initial  + (chunk  * @current_frame)
+						current_value=  (initial  + (chunk  * @current_frame)).toFixed(2)
 					else
 						fn = window[_settings.easing]
 						if typeof fn is "function"
-							current_value= fn.apply(this,new Array(@current_frame, initial, (final - initial), _frames))
+							current_value= (fn.apply(this,new Array(@current_frame, initial, (final - initial), _frames))).toFixed(2)
 					# if the animation is on % px or int
 					if obj.measure == "percent"
 						current_value= current_value + "%"
@@ -226,8 +226,9 @@
 						current_value= current_value + "px"           
 									
 					if _settings.is_filter != undefined
+						# current_value= parseInt(current_value)
 						cadena = obj.property_to_animate+"("+current_value+")"
-						root.css(element,{"filter": cadena})
+						root.css(element,{"-webkit-filter": cadena})
 					else
 						
 						element.style[obj.property_to_animate] = current_value

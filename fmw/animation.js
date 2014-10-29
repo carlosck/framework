@@ -133,11 +133,11 @@
             final = parseInt(obj.to_value);
             if (_settings.easing === void 0) {
               chunk = (final - initial) / _frames;
-              current_value = initial + (chunk * this.current_frame);
+              current_value = (initial + (chunk * this.current_frame)).toFixed(2);
             } else {
               fn = window[_settings.easing];
               if (typeof fn === "function") {
-                current_value = fn.apply(this, new Array(this.current_frame, initial, final - initial, _frames));
+                current_value = (fn.apply(this, new Array(this.current_frame, initial, final - initial, _frames))).toFixed(2);
               }
             }
             if (obj.measure === "percent") {
@@ -148,7 +148,7 @@
             if (_settings.is_filter !== void 0) {
               cadena = obj.property_to_animate + "(" + current_value + ")";
               root.css(element, {
-                "filter": cadena
+                "-webkit-filter": cadena
               });
             } else {
               element.style[obj.property_to_animate] = current_value;
